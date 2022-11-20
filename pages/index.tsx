@@ -31,43 +31,45 @@ export default function Home({ allExperiencesData, allProjectsData }: InferGetSt
   const experiencesLength = allExperiencesData.length;
   return (
     <Layout home>
-      <Head>
-        <title>{siteTitle}</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
-      <Stack spacing={12}>
-        <Typography variant="h4">Professional Experience</Typography>
-        <Timeline>
-          {allExperiencesData.map(({ _id, startDate, endDate, companyName, jobTitle }, idx) => (
-            <Link href={`/experience/${_id}`} key={_id}>
-              <TimelineItem>
-                <TimelineOppositeContent>
-                  <Typography variant="h6" gutterBottom>{companyName}</Typography>
-                </TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  {idx != (experiencesLength - 1) && <TimelineConnector />}
-                </TimelineSeparator >
-                <TimelineContent color="gray">
-                  <Stack>
-                    <Typography variant="overline">{jobTitle}</Typography>
-                    <DateRange startDateString={startDate} endDateString={endDate} />
-                  </Stack>
-                </TimelineContent>
-              </TimelineItem>
-            </Link>
-          ))}
-        </Timeline>
-        <Typography variant="h4">Projects</Typography>
-        <Stack>
-          {allProjectsData.map(({ _id, date, projectName }) => (
-            <Stack key={_id}>
-              <Link href={`/project/${_id}`}><Typography variant="h6">{projectName}</Typography></Link>
-              <Date dateString={date} />
-            </Stack>
-          ))}
+      <>
+        <Head>
+          <title>{siteTitle}</title>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
+        <Stack spacing={12}>
+          <Typography variant="h4">Professional Experience</Typography>
+          <Timeline>
+            {allExperiencesData.map(({ id, startDate, endDate, companyName, jobTitle }, idx) => (
+              <Link href={`/experience/${id}`} key={id}>
+                <TimelineItem>
+                  <TimelineOppositeContent>
+                    <Typography variant="h6" gutterBottom>{companyName}</Typography>
+                  </TimelineOppositeContent>
+                  <TimelineSeparator>
+                    <TimelineDot />
+                    {idx != (experiencesLength - 1) && <TimelineConnector />}
+                  </TimelineSeparator >
+                  <TimelineContent color="gray">
+                    <Stack>
+                      <Typography variant="overline">{jobTitle}</Typography>
+                      <DateRange startDateString={startDate} endDateString={endDate} />
+                    </Stack>
+                  </TimelineContent>
+                </TimelineItem>
+              </Link>
+            ))}
+          </Timeline>
+          <Typography variant="h4">Projects</Typography>
+          <Stack>
+            {allProjectsData.map(({ id, date, projectName }) => (
+              <Stack key={id}>
+                <Link href={`/project/${id}`}><Typography variant="h6">{projectName}</Typography></Link>
+                <Date dateString={date} />
+              </Stack>
+            ))}
+          </Stack>
         </Stack>
-      </Stack>
+      </>
     </Layout >
   )
 }

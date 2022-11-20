@@ -11,8 +11,13 @@ async function getData() {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data');
     }
-
-    return res.json();
+    const objs = await res.json();
+    objs.map((obj: any) => {
+        obj['id'] = obj['_id'];
+        delete obj['_id'];
+        delete obj['__v'];
+    })
+    return objs;
 }
 
 export async function getSortedExperiencesData(): Promise<Experience[]> {
@@ -34,7 +39,7 @@ export async function getAllExperienceIds(): Promise<{ params: { id: string; }; 
     return experiences.map((experience: Experience) => {
         return {
             params: {
-                id: experience._id,
+                id: experience.id,
             },
         };
     });
@@ -43,11 +48,11 @@ export async function getAllExperienceIds(): Promise<{ params: { id: string; }; 
 export async function getExperienceData(id: string): Promise<Experience> {
     const experiences = await getData();
 
-    return experiences.find((experience: Experience) => experience._id === id);
+    return experiences.find((experience: Experience) => experience.id === id);
 }
 
 export type Experience = {
-    _id: string;
+    id: string;
     companyName: string;
     companyUrl: string | undefined;
     companyLogoUrl: string | undefined;

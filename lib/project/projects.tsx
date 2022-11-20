@@ -11,8 +11,13 @@ async function getData() {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data');
     }
-
-    return res.json();
+    const objs = await res.json();
+    objs.map((obj: any) => {
+        obj['id'] = obj['_id'];
+        delete obj['_id'];
+        delete obj['__v'];
+    })
+    return objs;
 }
 
 export async function getSortedProjectsData(): Promise<Project[]> {
@@ -34,7 +39,7 @@ export async function getAllProjectIds(): Promise<{ params: { id: string; }; }[]
     return projects.map((project: Project) => {
         return {
             params: {
-                id: project._id,
+                id: project.id,
             },
         };
     });
@@ -42,12 +47,11 @@ export async function getAllProjectIds(): Promise<{ params: { id: string; }; }[]
 
 export async function getProjectData(id: string): Promise<Project> {
     const projects = await getData();
-
-    return projects.find((project: Project) => project._id === id);
+    return projects.find((project: Project) => project.id === id);
 }
 
 export type Project = {
-    _id: string;
+    id: string;
     projectName: string;
     url: string | undefined;
     date: string;

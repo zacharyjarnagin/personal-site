@@ -7,9 +7,8 @@ import { Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 
 
-export async function getStaticProps({ params }): Promise<{ props: { experienceData: Experience } }> {
+export async function getStaticProps({params}: any): Promise<{ props: { experienceData: Experience } }> {
     const experienceData = await getExperienceData(params.id);
-
     return {
         props: {
             experienceData,
@@ -27,19 +26,21 @@ export async function getStaticPaths() {
 
 export default function Post(props: { experienceData: Experience }) {
     return (
-        <Layout>
-            <Head>
-                <title>{props.experienceData.companyName}</title>
-            </Head>
-            <Stack spacing={2}>
-                <Stack>
-                    <Typography variant="h3">{props.experienceData.companyName}</Typography>
-                    <Typography variant="overline">{props.experienceData.jobTitle}</Typography>
+        <Layout home={false}>
+            <>
+                <Head>
+                    <title>{props.experienceData.companyName}</title>
+                </Head>
+                <Stack spacing={2}>
+                    <Stack>
+                        <Typography variant="h3">{props.experienceData.companyName}</Typography>
+                        <Typography variant="overline">{props.experienceData.jobTitle}</Typography>
+                    </Stack>
+                    <DateRange startDateString={props.experienceData.startDate} endDateString={props.experienceData.endDate} />
+                    <Typography variant="body1" paragraph={true}>{props.experienceData.description}</Typography>
+                    <Technologies technologies={props.experienceData.technologies} />
                 </Stack>
-                <DateRange startDateString={props.experienceData.startDate} endDateString={props.experienceData.endDate} />
-                <Typography variant="body1" paragraph={true}>{props.experienceData.description}</Typography>
-                <Technologies technologies={props.experienceData.technologies} />
-            </Stack>
+            </>
         </Layout>
     );
 }

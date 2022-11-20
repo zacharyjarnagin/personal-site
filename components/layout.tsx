@@ -3,12 +3,13 @@ import Image from 'next/image';
 import styles from './layout.module.css';
 import Link from 'next/link';
 import { Container, Stack, Typography } from '@mui/material';
+import { ReactElement } from 'react';
 
 
 const name = 'Zachary Jarnagin';
 export const siteTitle = 'Zachary Jarnagin';
 
-export default function Layout({ children, home }) {
+export default function Layout({children, home}: {children: ReactElement<any, any>, home: boolean}) {
   return (
     <Container maxWidth='md'>
       <Head>
