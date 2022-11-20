@@ -1,7 +1,7 @@
 import { GetStaticPaths } from "next";
 
 async function getData() {
-    const res = await fetch('http://localhost:8000/api/getAll/');
+    const res = await fetch(`${process.env.API_URL}/experience/getAll/`);
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
 

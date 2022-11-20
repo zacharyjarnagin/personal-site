@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import { Experience, getAllExperienceIds, getExperienceData } from '../../lib/experience/experiences';
 import Layout from '../../components/layout';
-import utilStyles from '../../styles/utils.module.css';
 import DateRange from '../../components/dateRange';
+import Technologies from '../../components/technologies';
+import { Typography } from '@mui/material';
+import { Stack } from '@mui/system';
 
 
 export async function getStaticProps({ params }): Promise<{ props: { experienceData: Experience } }> {
-    // Add the "await" keyword like this:
     const experienceData = await getExperienceData(params.id);
 
     return {
@@ -30,18 +31,15 @@ export default function Post(props: { experienceData: Experience }) {
             <Head>
                 <title>{props.experienceData.companyName}</title>
             </Head>
-            <article>
-                <h1 className={utilStyles.headingXl}>{props.experienceData.companyName}</h1>
-                <h1 className={utilStyles.headingMd}>{props.experienceData.jobTitle}</h1>
-
-                <div className={utilStyles.lightText}>
-                    <DateRange startDateString={props.experienceData.startDate} endDateString={props.experienceData.endDate} />
-                </div>
-                <div>
-                    <p>{props.experienceData.description}</p>
-                    <p>{props.experienceData.technologies}</p>
-                </div>
-            </article>
+            <Stack spacing={2}>
+                <Stack>
+                    <Typography variant="h3">{props.experienceData.companyName}</Typography>
+                    <Typography variant="overline">{props.experienceData.jobTitle}</Typography>
+                </Stack>
+                <DateRange startDateString={props.experienceData.startDate} endDateString={props.experienceData.endDate} />
+                <Typography variant="body1" paragraph={true}>{props.experienceData.description}</Typography>
+                <Technologies technologies={props.experienceData.technologies} />
+            </Stack>
         </Layout>
     );
 }

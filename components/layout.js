@@ -1,15 +1,16 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from './layout.module.css';
-import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
+import { Container, Stack, Typography } from '@mui/material';
 
-const name = 'Zach J';
-export const siteTitle = 'Next.js Sample Website';
+
+const name = 'Zachary Jarnagin';
+export const siteTitle = 'Zachary Jarnagin';
 
 export default function Layout({ children, home }) {
   return (
-    <div className={styles.container}>
+    <Container maxWidth='md'>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -25,45 +26,23 @@ export default function Layout({ children, home }) {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
-        {home ? (
-          <>
-            <Image
-              priority
-              src="/images/profile.png"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt=""
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <Image
-                priority
-                src="/images/profile.png"
-                className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt=""
-              />
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/" className={utilStyles.colorInherit}>
-                {name}
-              </Link>
-            </h2>
-          </>
-        )}
-      </header>
+      <Stack alignItems={'center'}>
+        <Image
+          priority
+          src="/images/profile.png"
+          style={{ borderRadius: "50%" }}
+          height={144}
+          width={144}
+          alt=""
+        />
+        <Typography variant="h3" textAlign={'center'} gutterBottom>{name}</Typography>
+      </Stack>
       <main>{children}</main>
       {!home && (
-        <div className={styles.backToHome}>
+        <Container sx={{ marginTop: 4 }} disableGutters>
           <Link href="/">← Back to home</Link>
-        </div>
+        </Container>
       )}
-    </div>
+    </Container>
   );
 }
