@@ -11,7 +11,7 @@ export const siteTitle = 'Zachary Jarnagin';
 
 export default function Layout({children, home}: {children: ReactElement<any, any>, home: boolean}) {
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth='md' sx={{marginBottom: 12}}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -27,7 +27,7 @@ export default function Layout({children, home}: {children: ReactElement<any, an
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Stack alignItems={'center'}>
+      <Stack alignItems={'center'} sx={{marginBottom: 6, marginTop: 8}}>
         <Image
           priority
           src="/images/profile.png"

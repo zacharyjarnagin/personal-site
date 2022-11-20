@@ -36,7 +36,7 @@ export default function Home({ allExperiencesData, allProjectsData }: InferGetSt
           <title>{siteTitle}</title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
-        <Stack spacing={12}>
+        <Stack spacing={1}>
           <Typography variant="h4">Professional Experience</Typography>
           <Timeline>
             {allExperiencesData.map(({ id, startDate, endDate, companyName, jobTitle }, idx) => (
