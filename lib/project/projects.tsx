@@ -1,22 +1,16 @@
-import { GetStaticPaths } from "next";
-
 async function getData() {
     const res = await fetch(`${process.env.API_URL}/project/getAll/`);
-    // The return value is *not* serialized
-    // You can return Date, Map, Set, etc.
-
-
-    // Recommendation: handle errors
     if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data');
     }
+
     const objs = await res.json();
     objs.map((obj: any) => {
         obj['id'] = obj['_id'];
         delete obj['_id'];
         delete obj['__v'];
-    })
+    });
+    
     return objs;
 }
 

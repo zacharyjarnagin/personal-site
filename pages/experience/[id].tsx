@@ -7,7 +7,7 @@ import { Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 
 
-export async function getStaticProps({params}: any): Promise<{ props: { experienceData: Experience } }> {
+export async function getStaticProps({ params }: { params: { id: string } }): Promise<{ props: { experienceData: Experience } }> {
     const experienceData = await getExperienceData(params.id);
     return {
         props: {
@@ -24,21 +24,21 @@ export async function getStaticPaths() {
     };
 }
 
-export default function Post(props: { experienceData: Experience }) {
+export default function Post({ experienceData }: { experienceData: Experience }) {
     return (
         <Layout home={false}>
             <>
                 <Head>
-                    <title>{props.experienceData.companyName}</title>
+                    <title>{experienceData.companyName}</title>
                 </Head>
                 <Stack spacing={2}>
                     <Stack>
-                        <Typography variant="h3">{props.experienceData.companyName}</Typography>
-                        <Typography variant="overline">{props.experienceData.jobTitle}</Typography>
+                        <Typography variant="h3">{experienceData.companyName}</Typography>
+                        <Typography variant="overline">{experienceData.jobTitle}</Typography>
                     </Stack>
-                    <DateRange startDateString={props.experienceData.startDate} endDateString={props.experienceData.endDate} />
-                    <Typography variant="body1" paragraph={true}>{props.experienceData.description}</Typography>
-                    <Technologies technologies={props.experienceData.technologies} />
+                    <DateRange startDateString={experienceData.startDate} endDateString={experienceData.endDate} />
+                    <Typography variant="body1" paragraph={true}>{experienceData.description}</Typography>
+                    <Technologies technologies={experienceData.technologies} />
                 </Stack>
             </>
         </Layout>

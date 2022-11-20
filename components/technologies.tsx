@@ -1,8 +1,8 @@
 import { Chip, Stack, Typography } from '@mui/material';
 
-export default function Technologies({ technologies }) {
+export default function Technologies({ technologies }: { technologies: string[] }) {
     return (
-        <Stack spacing={2} gutterBottom>
+        <Stack spacing={2}>
             <Typography variant="h6">Technologies</Typography>
             <Stack direction="row" spacing={1}>
                 {technologies.map((technology) => (

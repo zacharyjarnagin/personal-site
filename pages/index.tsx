@@ -1,20 +1,11 @@
 import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout';
-import Link from 'next/link';
 import { Experience, getSortedExperiencesData } from '../lib/experience/experiences';
-import DateRange from '../components/dateRange';
-import Date from '../components/date';
 import { getSortedProjectsData, Project } from '../lib/project/projects';
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
-import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
-import { Container, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
+import ExperienceTimeline from '../components/experienceTimeline';
+import Projects from '../components/projects';
 
 export async function getStaticProps() {
   const allExperiencesData: Experience[] = await getSortedExperiencesData();
@@ -28,7 +19,6 @@ export async function getStaticProps() {
 }
 
 export default function Home({ allExperiencesData, allProjectsData }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const experiencesLength = allExperiencesData.length;
   return (
     <Layout home>
       <>
@@ -37,37 +27,8 @@ export default function Home({ allExperiencesData, allProjectsData }: InferGetSt
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <Stack spacing={1}>
-          <Typography variant="h4">Professional Experience</Typography>
-          <Timeline>
-            {allExperiencesData.map(({ id, startDate, endDate, companyName, jobTitle }, idx) => (
-              <Link href={`/experience/${id}`} key={id}>
-                <TimelineItem>
-                  <TimelineOppositeContent>
-                    <Typography variant="h6" gutterBottom>{companyName}</Typography>
-                  </TimelineOppositeContent>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                    {idx != (experiencesLength - 1) && <TimelineConnector />}
-                  </TimelineSeparator >
-                  <TimelineContent color="gray">
-                    <Stack>
-                      <Typography variant="overline">{jobTitle}</Typography>
-                      <DateRange startDateString={startDate} endDateString={endDate} />
-                    </Stack>
-                  </TimelineContent>
-                </TimelineItem>
-              </Link>
-            ))}
-          </Timeline>
-          <Typography variant="h4">Projects</Typography>
-          <Stack>
-            {allProjectsData.map(({ id, date, projectName }) => (
-              <Stack key={id}>
-                <Link href={`/project/${id}`}><Typography variant="h6">{projectName}</Typography></Link>
-                <Date dateString={date} />
-              </Stack>
-            ))}
-          </Stack>
+          <ExperienceTimeline allExperiencesData={allExperiencesData} />
+          <Projects allProjectsData={allProjectsData} />
         </Stack>
       </>
     </Layout >

@@ -1,22 +1,16 @@
-import { GetStaticPaths } from "next";
-
 async function getData() {
     const res = await fetch(`${process.env.API_URL}/experience/getAll/`);
-    // The return value is *not* serialized
-    // You can return Date, Map, Set, etc.
-
-
-    // Recommendation: handle errors
     if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data');
     }
+
     const objs = await res.json();
     objs.map((obj: any) => {
         obj['id'] = obj['_id'];
         delete obj['_id'];
         delete obj['__v'];
-    })
+    });
+
     return objs;
 }
 
@@ -47,7 +41,6 @@ export async function getAllExperienceIds(): Promise<{ params: { id: string; }; 
 
 export async function getExperienceData(id: string): Promise<Experience> {
     const experiences = await getData();
-
     return experiences.find((experience: Experience) => experience.id === id);
 }
 

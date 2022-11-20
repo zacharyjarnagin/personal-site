@@ -6,7 +6,7 @@ import Technologies from '../../components/technologies';
 import { Stack, Typography } from '@mui/material';
 
 
-export async function getStaticProps({params}: any): Promise<{ props: { projectData: Project } }> {
+export async function getStaticProps({ params }: { params: { id: string } }): Promise<{ props: { projectData: Project } }> {
     const projectData = await getProjectData(params.id);
     return {
         props: {
@@ -23,18 +23,18 @@ export async function getStaticPaths() {
     };
 }
 
-export default function Post(props: { projectData: Project }) {
+export default function Post({ projectData }: { projectData: Project }) {
     return (
         <Layout home={false}>
             <>
                 <Head>
-                    <title>{props.projectData.projectName}</title>
+                    <title>{projectData.projectName}</title>
                 </Head>
                 <Stack spacing={2}>
-                    <Typography variant="h3">{props.projectData.projectName}</Typography>
-                    <Date dateString={props.projectData.date} />
-                    <Typography variant="body1" paragraph={true}>{props.projectData.description}</Typography>
-                    <Technologies technologies={props.projectData.technologies} />
+                    <Typography variant="h3">{projectData.projectName}</Typography>
+                    <Date dateString={projectData.date} />
+                    <Typography variant="body1" paragraph={true}>{projectData.description}</Typography>
+                    <Technologies technologies={projectData.technologies} />
                 </Stack>
             </>
         </Layout>
