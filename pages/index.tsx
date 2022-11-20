@@ -35,11 +35,11 @@ export default function Home({ allExperiencesData, allProjectsData }: InferGetSt
         <title>{siteTitle}</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <Stack spacing={1}>
+      <Stack spacing={12}>
         <Typography variant="h4">Professional Experience</Typography>
         <Timeline>
           {allExperiencesData.map(({ _id, startDate, endDate, companyName, jobTitle }, idx) => (
-            <Link href={`/experience/${_id}`}>
+            <Link href={`/experience/${_id}`} key={_id}>
               <TimelineItem>
                 <TimelineOppositeContent>
                   <Typography variant="h6" gutterBottom>{companyName}</Typography>
@@ -61,7 +61,7 @@ export default function Home({ allExperiencesData, allProjectsData }: InferGetSt
         <Typography variant="h4">Projects</Typography>
         <Stack>
           {allProjectsData.map(({ _id, date, projectName }) => (
-            <Stack>
+            <Stack key={_id}>
               <Link href={`/project/${_id}`}><Typography variant="h6">{projectName}</Typography></Link>
               <Date dateString={date} />
             </Stack>

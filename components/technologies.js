@@ -6,7 +6,7 @@ export default function Technologies({ technologies }) {
             <Typography variant="h6">Technologies</Typography>
             <Stack direction="row" spacing={1}>
                 {technologies.map((technology) => (
-                    <Chip label={technology} color="primary" />
+                    <Chip key={technology} label={technology} color="primary" />
                 ))}
             </Stack>
         </Stack>
